@@ -24,7 +24,7 @@ export default class Register extends Component {
     this.props.navigation.dispatch(NavigationActions.navigate({
       routeName: 'LoginScreen',
       params: {
-        id: 'text back'
+        id: 'text back 123'
       }
     }))
   }
