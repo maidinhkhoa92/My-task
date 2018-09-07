@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, Image, View, TextInput, ImageBackground, TouchableOpacity  } from 'react-native'
+import {findNodeHandle, ScrollView, Text, Image, View, TextInput, ImageBackground, TouchableOpacity, KeyboardAvoidingView, Animated, Keyboard  } from 'react-native'
 import { Images } from '../../Themes'
 
 // validate
 import validate from '../../Lib/validate/validate_wrapper';
+
+// navigation
+import { NavigationActions } from 'react-navigation';
 
 // Styles
 import styles from './styles'
@@ -18,9 +21,75 @@ export default class LoginScreen extends Component {
         username: '',
         password: '',
       },
-      buttonStyle: styles.button
+      buttonStyle: styles.button,
+      user: null,
+    },
+    this.keyboardHeight = new Animated.Value(0);
+    this.imageHeight = new Animated.Value(150);
+    this.paddingForm = new Animated.Value(25);
+    this.paddingForm1 = new Animated.Value(35);
+  }
+  componentWillMount () {
+    this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
+    this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
+    if(this.props.navigation.state.params){
+      alert(this.props.navigation.state.params.id)
     }
   }
+  componentWillUnmount() {
+    this.keyboardWillShowSub.remove();
+    this.keyboardWillHideSub.remove();
+  }
+  componentWillReceiveProps(newProps, props) {
+    if(newProps.information.user.data.length > 0) {
+      this.setState({
+        user: newProps.user
+      }, () => {
+        this.props.navigation.navigate('Register');
+      })
+    }
+  }
+  keyboardWillShow = (event) => {
+    Animated.parallel([
+      Animated.timing(this.keyboardHeight, {
+        duration: event.duration,
+        toValue: event.endCoordinates.height,
+      }),
+      Animated.timing(this.imageHeight, {
+        duration: event.duration,
+        toValue: 40,
+      }),
+      Animated.timing(this.paddingForm, {
+        duration: event.duration,
+        toValue: 10,
+      }),
+      Animated.timing(this.paddingForm1, {
+        duration: event.duration,
+        toValue: 10,
+      }),
+    ]).start();
+  };
+
+  keyboardWillHide = (event) => {
+    Animated.parallel([
+      Animated.timing(this.keyboardHeight, {
+        duration: event.duration,
+        toValue: 0,
+      }),
+      Animated.timing(this.imageHeight, {
+        duration: event.duration,
+        toValue: 150,
+      }),
+      Animated.timing(this.paddingForm, {
+        duration: event.duration,
+        toValue: 25,
+      }),
+      Animated.timing(this.paddingForm1, {
+        duration: event.duration,
+        toValue: 35,
+      }),
+    ]).start();
+  };
   _setValue(field, value) {
     this.setState({
       [field]: value
@@ -56,49 +125,77 @@ export default class LoginScreen extends Component {
       this.props.onLogin(this.state.username, this.state.password);
     }
   }
+  _scrollUp(ref){
+    let scrollResponder = this.refs.scrollView.getScrollResponder();
+    scrollResponder.scrollResponderScrollNativeHandleToKeyboard(
+      findNodeHandle(ref),
+      180, //additionalOffset
+      true
+    );
+  }
   render () {
+
     return (
-      <ScrollView style={styles.loginWrapper}>
-        <ImageBackground source={Images.header} style={styles.header}>
-          <Text style={styles.headerText}>Login</Text>
-        </ImageBackground>
-        <View style={styles.middle}>
-          <Image source={Images.avatar} style={{width: 150, height: 150}}/>
-        </View>
-        <View style={styles.loginForm}>
-          <View style={styles.items}>
-            <View style={styles.label}><Text style={styles.labelText}>Username</Text></View>
-            <View style={styles.inputWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="Your username!"
-                autoCapitalize='none'
-                onChangeText={(value) => this._setValue('username', value)}
-                onBlur={() => this._checkValidate('username',this.state.username)}
-              />
+        <Animated.View style={{ marginBottom: this.keyboardHeight }}>
+          <ScrollView style={styles.loginWrapper} ref="scrollView" keyboardDismissMode="interactive">
+            <ImageBackground source={Images.header} style={styles.header}>
+              <Text style={styles.headerText}>Login</Text>
+            </ImageBackground>
+            <Animated.View style={[styles.middle, {paddingBottom: this.paddingForm, paddingTop: this.paddingForm}]} >
+              <Animated.Image source={Images.avatar} style={{ width: this.imageHeight, height: this.imageHeight }}/>
+            </Animated.View>
+
+            <Animated.View style={styles.loginForm}>
+              <Animated.View style={[styles.items, {paddingTop: this.paddingForm}]}>
+                <View style={styles.label}><Text style={styles.labelText}>Username</Text></View>
+                <View style={styles.inputWrapper}>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Your username!"
+                    autoCapitalize='none'
+                    onChangeText={(value) => this._setValue('username', value)}
+                    onBlur={() => this._checkValidate('username',this.state.username)}
+                    blurOnSubmit={false}
+                    returnKeyType = { "next" }
+                    onSubmitEditing={() => { this.secondTextInput.focus(); }}
+                    onFocus={this._scrollUp.bind(this, this.firstTextInput)}
+                    ref={(input) => { this.firstTextInput = input; }}
+                  />
+                </View>
+              </Animated.View>
+              <Animated.View style={[styles.errorWrapper,{paddingTop: this.paddingForm1}]}>
+                <Text style={styles.errorText}>{this.state.error.username}</Text>
+              </Animated.View>
+              <Animated.View style={[styles.items, {paddingTop: this.paddingForm}]}>
+                <View style={styles.label}><Text style={styles.labelText}>Password</Text></View>
+                <View style={styles.inputWrapper}>
+                  <TextInput
+                    style={styles.input}
+                    ref={(input) => { this.secondTextInput = input; }}
+                    placeholder="*********"
+                    secureTextEntry={true}
+                    onChangeText={(value) => this._setValue('password', value)}
+                    onBlur={() => this._checkValidate('password',this.state.password)}
+                    onSubmitEditing={() => { this.thirdTextInput.focus(); }}
+                    onFocus={this._scrollUp.bind(this, this.secondTextInput)}
+                  />
+                </View>
+              </Animated.View>
+              <Animated.View style={[styles.errorWrapper,{paddingTop: this.paddingForm1}]}>
+                <Text style={styles.errorText}>{this.state.error.password}</Text>
+              </Animated.View>
+
+            </Animated.View>
+
+
+          </ScrollView>
+
+          <TouchableOpacity onPress={() => { this._loginButton()}}>
+            <View style={this.state.buttonStyle}>
+              <Text style={styles.buttonText}>Login</Text>
             </View>
-          </View>
-          <View style={styles.errorWrapper}><Text style={styles.errorText}>{this.state.error.username}</Text></View>
-          <View style={styles.items}>
-            <View style={styles.label}><Text style={styles.labelText}>Password</Text></View>
-            <View style={styles.inputWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="*********"
-                secureTextEntry={true}
-                onChangeText={(value) => this._setValue('password', value)}
-                onBlur={() => this._checkValidate('password',this.state.password)}
-              />
-            </View>
-          </View>
-          <View style={styles.errorWrapper}><Text style={styles.errorText}>{this.state.error.password}</Text></View>
-        </View>
-        <TouchableOpacity onPress={() => { this._loginButton()}}>
-          <View style={this.state.buttonStyle}>
-            <Text style={styles.buttonText}>Login</Text>
-          </View>
-        </TouchableOpacity>
-      </ScrollView>
+          </TouchableOpacity>
+        </Animated.View>
     )
   }
 }

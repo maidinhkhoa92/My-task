@@ -4,7 +4,10 @@ import { Colors, Metrics, Fonts } from '../../Themes/'
 export default StyleSheet.create({
   loginWrapper: {
     backgroundColor: '#fff',
-    flex: 1
+    paddingBottom: 80,
+  },
+  loginForm: {
+    paddingBottom: 50,
   },
   header: {
     paddingTop: 30,
@@ -45,7 +48,7 @@ export default StyleSheet.create({
     color: '#c7c7cd'
   },
   errorWrapper: {
-    paddingTop: 35,
+
     paddingLeft: 25,
     paddingRight: 25,
     paddingBottom: 25,
@@ -60,20 +63,25 @@ export default StyleSheet.create({
   button: {
     backgroundColor: '#d0d0d0',
     paddingTop: 10,
-    paddingBottom: 20,
+    paddingBottom: 10,
+    position: 'absolute',
     bottom: 0,
-    marginTop: 50
+    left: 0,
+    right: 0,
   },
   buttonActive: {
     backgroundColor: '#3c5a9a',
     paddingTop: 10,
-    paddingBottom: 20,
+    paddingBottom: 10,
+    position: 'absolute',
     bottom: 0,
-    marginTop: 50
+    left: 0,
+    right: 0,
   },
   buttonText: {
     textAlign: 'center',
     color: '#fff',
     fontSize: 22
-  }
+  },
+
 })

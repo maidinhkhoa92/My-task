@@ -4,12 +4,15 @@ import LoginActions from '../Redux/LoginRedux'
 export function * login (api, action) {
   const { username, password } = action
   // make the call to the api
-  const response = yield call(api.login, username, password)
-  console.log(response);
+  const response = yield call(api.login, username, password);
   if (response.ok) {
-    alert(response.data.message)
-
+    yield put(LoginActions.login(response.data))
   } else {
-    alert(response.data.errors[0].detail)
+    yield put(LoginActions.logout(response.data))
   }
+}
+
+export function * logout (api, action) {
+
+  yield put(LoginActions.logout())
 }
