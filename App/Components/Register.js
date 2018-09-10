@@ -28,16 +28,16 @@ export default class Register extends Component {
   componentWillMount() {
   }
   _backAction(){
-    this.setState({navigation: true}, () => {console.log(this.state.navigation)});
-
+    this.props.navigation.replace(
+      'LoginScreen',
+      {
+        name: 'Lucy'
+      }
+    );
   }
 
   render () {
-    if(this.state.navigation){
-      return (
-        <LoginScreen black="text" />
-      )
-    }
+    const information = this.props.navigation.state.params;
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -48,15 +48,15 @@ export default class Register extends Component {
             <TouchableOpacity><Text style={styles.headerMidText}>I love mac</Text></TouchableOpacity>
           </View>
           <View style={styles.headerRight}>
-            <TouchableOpacity onPress={()=> this.props.navigation.toggleDrawer()}><Text style={styles.headerRightText}>Menu</Text></TouchableOpacity>
+            <TouchableOpacity><Text style={styles.headerRightText}>Menu</Text></TouchableOpacity>
           </View>
         </View>
         <View style={{padding: 10}}>
-          <Text>First Name: {this.props.information.FirstName}</Text>
-          <Text>Last Name: {this.props.information.LastName}</Text>
-          <Text>Phone: {this.props.information.Phone}</Text>
-          <Text>Email: {this.props.information.Email}</Text>
-          <Text>Num Views: {this.props.information.NumViews}</Text>
+          <Text>First Name: {information[0].FirstName}</Text>
+          <Text>Last Name: {information[0].LastName}</Text>
+          <Text>Phone: {information[0].Phone}</Text>
+          <Text>Email: {information[0].Email}</Text>
+          <Text>Num Views: {information[0].NumViews}</Text>
         </View>
       </View>
     )

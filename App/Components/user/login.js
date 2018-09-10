@@ -42,7 +42,7 @@ export default class LoginScreen extends Component {
       this.setState({
         user: newProps.user
       }, () => {
-        this.props.navigation.navigate('Register');
+        this.props.navigation.navigate('Register', newProps.information.user.data);
       })
     }
   }
@@ -131,7 +131,7 @@ export default class LoginScreen extends Component {
     );
   }
   render () {
-    console.log(this.props.black)
+    console.log(this.props.navigation);
     return (
         <Animated.View style={{ marginBottom: this.keyboardHeight }}>
           <ScrollView style={styles.loginWrapper} ref="scrollView" keyboardDismissMode="interactive">
@@ -141,7 +141,6 @@ export default class LoginScreen extends Component {
             <Animated.View style={[styles.middle, {paddingBottom: this.paddingForm, paddingTop: this.paddingForm}]} >
               <Animated.Image source={Images.avatar} style={{ width: this.imageHeight, height: this.imageHeight }}/>
             </Animated.View>
-
             <Animated.View style={styles.loginForm}>
               <Animated.View style={[styles.items, {paddingTop: this.paddingForm}]}>
                 <View style={styles.label}><Text style={styles.labelText}>Username</Text></View>

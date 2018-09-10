@@ -6,13 +6,12 @@ import LoginActions from '../Redux/LoginRedux'
 
 const mapStateToProps = (state) => {
   return {
-    information: state.user.user.data[0]
+
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onLogout: () => dispatch(LoginActions.logout()),
   }
 }
 
