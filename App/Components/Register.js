@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import styles from './Styles/RegisterStyle'
 
+import LoginScreen from './user/login';
+
 // navigation
 import { NavigationActions } from 'react-navigation';
 
@@ -17,18 +19,25 @@ export default class Register extends Component {
   // static defaultProps = {
   //   someSetting: false
   // }
+  constructor(props){
+    super(props);
+    this.state = {
+      navigation: false,
+    }
+  }
   componentWillMount() {
-    console.log(this.props.information);
   }
   _backAction(){
-    this.props.navigation.dispatch(NavigationActions.navigate({
-      routeName: 'LoginScreen',
-      params: {
-        id: 'text back 123'
-      }
-    }))
+    this.setState({navigation: true}, () => {console.log(this.state.navigation)});
+
   }
+
   render () {
+    if(this.state.navigation){
+      return (
+        <LoginScreen black="text" />
+      )
+    }
     return (
       <View style={styles.container}>
         <View style={styles.header}>

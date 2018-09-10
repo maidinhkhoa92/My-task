@@ -63,7 +63,7 @@
 		</data>
 		<key>PlugIns/MyNewAppNameTests.xctest.dSYM/Contents/Resources/DWARF/MyNewAppNameTests</key>
 		<data>
-		RmHJ4BM2u11E+Xub9MHGxHAu9ZI=
+		xWkt6F495xPEr/jcohMZmHGKH5s=
 		</data>
 		<key>PlugIns/MyNewAppNameTests.xctest/Info.plist</key>
 		<data>
@@ -71,7 +71,7 @@
 		</data>
 		<key>PlugIns/MyNewAppNameTests.xctest/MyNewAppNameTests</key>
 		<data>
-		pMPg+H2RQhjzXD2RNpw2wunVvxs=
+		/MsN65OM5z6OvYC24qP/1v4i3w8=
 		</data>
 		<key>PlugIns/MyNewAppNameTests.xctest/_CodeSignature/CodeResources</key>
 		<data>
@@ -207,11 +207,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			RmHJ4BM2u11E+Xub9MHGxHAu9ZI=
+			xWkt6F495xPEr/jcohMZmHGKH5s=
 			</data>
 			<key>hash2</key>
 			<data>
-			IGcGheeFPtza723ujTIwU2eOL94ekI+HKmpoJcIjhjQ=
+			we93gjHNdBpvXHoi1adePUB6A0GkaF6ZLNxG4EBpXDI=
 			</data>
 		</dict>
 		<key>PlugIns/MyNewAppNameTests.xctest/Info.plist</key>
@@ -229,11 +229,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			pMPg+H2RQhjzXD2RNpw2wunVvxs=
+			/MsN65OM5z6OvYC24qP/1v4i3w8=
 			</data>
 			<key>hash2</key>
 			<data>
-			A6n3CKAjSFDqMT+uat2iez6YT8Xx0rE2QYAijHE2Jvg=
+			4v/MYYcxVF9GtG94fIGBA5xJHKREx+EMijOJ7T7llj0=
 			</data>
 		</dict>
 		<key>PlugIns/MyNewAppNameTests.xctest/_CodeSignature/CodeResources</key>

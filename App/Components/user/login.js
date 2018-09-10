@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {findNodeHandle, ScrollView, Text, Image, View, TextInput, ImageBackground, TouchableOpacity, KeyboardAvoidingView, Animated, Keyboard  } from 'react-native'
-import { Images } from '../../Themes'
-
+import { Images } from '../../Themes';
+import Register from '../Register';
 // validate
 import validate from '../../Lib/validate/validate_wrapper';
 
@@ -32,9 +32,6 @@ export default class LoginScreen extends Component {
   componentWillMount () {
     this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
     this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
-    if(this.props.navigation.state.params){
-      alert(this.props.navigation.state.params.id)
-    }
   }
   componentWillUnmount() {
     this.keyboardWillShowSub.remove();
@@ -134,7 +131,7 @@ export default class LoginScreen extends Component {
     );
   }
   render () {
-
+    console.log(this.props.black)
     return (
         <Animated.View style={{ marginBottom: this.keyboardHeight }}>
           <ScrollView style={styles.loginWrapper} ref="scrollView" keyboardDismissMode="interactive">
