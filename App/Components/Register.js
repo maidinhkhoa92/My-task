@@ -28,16 +28,12 @@ export default class Register extends Component {
   componentWillMount() {
   }
   _backAction(){
-    this.props.navigation.replace(
-      'LoginScreen',
-      {
-        name: 'Lucy'
-      }
-    );
+    this.props.navigation.goBack();
+    this.props.navigation.state.params.onSelect({ name: 'Lucy' });
   }
 
   render () {
-    const information = this.props.navigation.state.params;
+    const information = this.props.navigation.state.params.information;
     return (
       <View style={styles.container}>
         <View style={styles.header}>

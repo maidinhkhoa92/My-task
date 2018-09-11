@@ -42,7 +42,12 @@ export default class LoginScreen extends Component {
       this.setState({
         user: newProps.user
       }, () => {
-        this.props.navigation.navigate('Register', newProps.information.user.data);
+        this.props.navigation.navigate('Register',
+          {
+            information: newProps.information.user.data,
+            onSelect: this.onSelect
+          }
+        );
       })
     }
   }
@@ -130,6 +135,9 @@ export default class LoginScreen extends Component {
       true
     );
   }
+  onSelect(data) {
+    console.log(data)
+  };
   render () {
     console.log(this.props.navigation);
     return (
