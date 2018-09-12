@@ -9,6 +9,10 @@ const user = (baseURL = 'https://dev-api.kargoe.com/webapi/') => {
     },
     timeout: 10000
   })
+
+  const setAuthToken = (token) => api.setHeader('authorization', 'Token ' + token);
+
+
   const login = (username, password) => api.post('v1/public/login', {
     Username: username, Password: password, appDetails: {
       "buildNumber": "1",
@@ -18,8 +22,11 @@ const user = (baseURL = 'https://dev-api.kargoe.com/webapi/') => {
       "urlScheme": "krgoedev"
     }
   })
+  const getChat = () => api.get('v1/chat');
   return {
-    login
+    login,
+    getChat,
+    setAuthToken
   }
 }
 

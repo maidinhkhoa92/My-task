@@ -42,12 +42,7 @@ export default class LoginScreen extends Component {
       this.setState({
         user: newProps.user
       }, () => {
-        this.props.navigation.navigate('Register',
-          {
-            information: newProps.information.user.data,
-            onSelect: this.onSelect
-          }
-        );
+        this.props.navigation.navigate('ListChat');
       })
     }
   }
@@ -139,7 +134,6 @@ export default class LoginScreen extends Component {
     console.log(data)
   };
   render () {
-    console.log(this.props.navigation);
     return (
         <Animated.View style={{ marginBottom: this.keyboardHeight }}>
           <ScrollView style={styles.loginWrapper} ref="scrollView" keyboardDismissMode="interactive">
@@ -162,7 +156,6 @@ export default class LoginScreen extends Component {
                     blurOnSubmit={false}
                     returnKeyType = { "next" }
                     onSubmitEditing={() => { this.secondTextInput.focus(); }}
-                    onFocus={this._scrollUp.bind(this, this.firstTextInput)}
                     ref={(input) => { this.firstTextInput = input; }}
                   />
                 </View>
@@ -181,7 +174,6 @@ export default class LoginScreen extends Component {
                     onChangeText={(value) => this._setValue('password', value)}
                     onBlur={() => this._checkValidate('password',this.state.password)}
                     onSubmitEditing={() => { this.thirdTextInput.focus(); }}
-                    onFocus={this._scrollUp.bind(this, this.secondTextInput)}
                   />
                 </View>
               </Animated.View>
