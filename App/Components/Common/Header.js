@@ -16,7 +16,9 @@ export default class Header extends Component {
           <Text style={styles.headerMidText}>{this.props.title}</Text>
         </View>
         <View style={styles.headerRight}>
-          <TouchableOpacity><Icon style={styles.headerRightText} name="bars" size={20} /></TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.toggleMenu(true)}>
+            <Icon style={styles.headerRightText} name="bars" size={20} />
+          </TouchableOpacity>
         </View>
       </View>
     )
